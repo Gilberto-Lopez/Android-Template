@@ -39,8 +39,20 @@ class AccessGrantedFragment : Fragment() {
     // See activityViewModels() documentation
     private val userViewModel: UserViewModel by activityViewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        // Inflate the layout for this fragment
+        _binding = FragmentAccessGrantedBinding.inflate(inflater, container, false)
+
+        // The following code, previously found in onCreate(), would cause the following error:
+        //
+        // IllegalStateException: You cannot access the NavBackStackEntry's SavedStateHandle until
+        //      it is added to the NavController's back stack (i.e., the Lifecycle of the
+        //      NavBackStackEntry reaches the CREATED state).
+        //
+        // The navController is ready AFTER onCreate()
         val navController = findNavController()
 
         val currentBackStackEntry = navController.currentBackStackEntry!!
@@ -53,21 +65,14 @@ class AccessGrantedFragment : Fragment() {
                 if (!success) {
                     Log.d(TAG, "User did not log in: Returning to MainFragment")
 
-                    val startDestination = navController.graph.startDestination
+                    val startDestination = navController.graph.startDestinationId
                     val navOptions = NavOptions.Builder()
                         .setPopUpTo(startDestination, true)
                         .build()
                     navController.navigate(startDestination, null, navOptions)
                 }
             }
-    }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        // Inflate the layout for this fragment
-        _binding = FragmentAccessGrantedBinding.inflate(inflater, container, false)
         return binding.root
     }
 
