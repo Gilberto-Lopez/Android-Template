@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/main_fragment"
-        android:name="com.example.androidtemplate.MainFragment"
+        android:name="com.example.androidtemplate.ui.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" >
         <action
@@ -16,12 +16,12 @@
     </fragment>
     <fragment
         android:id="@+id/login_fragment"
-        android:name="com.example.androidtemplate.LoginFragment"
+        android:name="com.example.androidtemplate.ui.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" />
     <fragment
         android:id="@+id/access_granted_fragment"
-        android:name="com.example.androidtemplate.AccessGrantedFragment"
+        android:name="com.example.androidtemplate.ui.AccessGrantedFragment"
         android:label="fragment_access_granted"
         tools:layout="@layout/fragment_access_granted" />
 </navigation>

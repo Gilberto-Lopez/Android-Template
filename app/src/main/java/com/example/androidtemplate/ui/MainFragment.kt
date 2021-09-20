@@ -1,4 +1,4 @@
-package com.example.androidtemplate
+package com.example.androidtemplate.ui
 
 import android.os.Bundle
 import android.util.Log

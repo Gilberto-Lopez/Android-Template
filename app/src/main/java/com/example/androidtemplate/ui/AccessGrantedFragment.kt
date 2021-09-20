@@ -1,4 +1,4 @@
-package com.example.androidtemplate
+package com.example.androidtemplate.ui
 
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import com.example.androidtemplate.R
 import com.example.androidtemplate.data.User
 import com.example.androidtemplate.databinding.FragmentAccessGrantedBinding
 import com.example.androidtemplate.model.UserViewModel
