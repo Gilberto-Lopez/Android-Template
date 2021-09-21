@@ -44,6 +44,10 @@ class UserViewModel @Inject constructor(
         // Launch a coroutine on a background thread for database operations
         // See https://developer.android.com/kotlin/coroutines#use-coroutines-for-main-safety
         // for more information
+        // The ViewModel should prefer creating coroutines and expose immutable observable types
+        // instead of exposing suspend functions to views
+        // See  https://developer.android.com/kotlin/coroutines/coroutines-best-practices#viewmodel-coroutines
+        // for more information
         login.value = Result.loading()
         viewModelScope.launch {
             val result = loginSuspend(email, password)
@@ -54,6 +58,11 @@ class UserViewModel @Inject constructor(
 
     // TODO: Move this function to repository
     private suspend fun loginSuspend(email: String, password: String): Result<User> {
+        // Suspend functions must be safe to call from the main thread
+        // Classes doing long-running blocking operations in a coroutine are in charge of moving
+        // execution off the main thread using withContext
+        // See https://developer.android.com/kotlin/coroutines/coroutines-best-practices#main-safe
+        // for more information
         return withContext(Dispatchers.IO) {
             val user = userDao.get(email)
             return@withContext when {
