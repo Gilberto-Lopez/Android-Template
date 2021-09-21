@@ -11,10 +11,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.fragment.findNavController
 import com.example.androidtemplate.data.Result
+import com.example.androidtemplate.data.Status
 import com.example.androidtemplate.data.User
 import com.example.androidtemplate.databinding.FragmentLoginBinding
 import com.example.androidtemplate.model.UserViewModel
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * The login screen. (Conditional navigation example.)
@@ -26,6 +28,7 @@ import com.google.android.material.snackbar.Snackbar
  * * If user chooses not to authenticate by clicking the back button, user will be redirected back
  *   to [AccessGrantedFragment].
  */
+@AndroidEntryPoint
 class LoginFragment : Fragment() {
 
     // View binding
@@ -73,6 +76,27 @@ class LoginFragment : Fragment() {
     }
 
     /**
+     * [Observer] to be used in calls to [login].
+     * Kept in a variable to avoid multiple observers being created on each login call.
+     */
+    private val loginObserver = Observer<Result<User>> { result ->
+        when (result.status) {
+            Status.LOADING -> {}
+            Status.SUCCESS -> {
+                Log.d(TAG, "Successful Authentication")
+
+                savedStateHandle.set(LOGIN_SUCCESSFUL, true)
+                findNavController().popBackStack()
+            }
+            Status.FAILURE -> {
+                Log.d(TAG, "Authentication Failed")
+
+                showErrorMessage(result.message!!)
+            }
+        }
+    }
+
+    /**
      * Pass [email] and [password] to the view model for authentication.
      *
      * Upon successful authentication sets [LOGIN_SUCCESSFUL] to true and this fragment pops itself
@@ -83,34 +107,17 @@ class LoginFragment : Fragment() {
      * @param password User's password.
      */
     private fun login(email: String, password: String) {
-        val login = userViewModel.login(email, password)
-        login.observe(viewLifecycleOwner, object : Observer<Result<User>> {
-            override fun onChanged(result: Result<User>) {
-                if (result.isSuccess) {
-                    Log.d(TAG, "Successful Authentication")
-
-                    savedStateHandle.set(LOGIN_SUCCESSFUL, true)
-                    findNavController().popBackStack()
-                } else {
-                    Log.d(TAG, "Authentication Failed")
-
-                    showErrorMessage()
-                }
-
-                // Remove this Observer so that this function executes only once on each
-                // login() call, that is, on each login button click
-                login.removeObserver(this)
-            }
-        })
+        userViewModel.login(email, password).observe(viewLifecycleOwner, loginObserver)
     }
 
     /**
      * Show a [Snackbar] notifying the user that authentication failed.
+     * @param message The message explaining the error.
      */
-    private fun showErrorMessage() {
+    private fun showErrorMessage(message: String) {
         Snackbar.make(
             binding.coordinatorLayout,
-            "Authentication failed. Try again.",
+            message,
             Snackbar.LENGTH_LONG
         ).show()
     }

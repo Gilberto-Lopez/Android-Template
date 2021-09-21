@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.androidtemplate.databinding.FragmentMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * The main fragment. This is the start destination as defined in the `nav_graph`, that is, the base
@@ -17,6 +18,7 @@ import com.example.androidtemplate.databinding.FragmentMainBinding
  * [Designate a screen as the start destination](https://developer.android.com/guide/navigation/navigation-getting-started#Designate-start)
  * for more information.
  */
+@AndroidEntryPoint
 class MainFragment : Fragment() {
 
     // An instance of the binding class
@@ -43,6 +45,13 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         Log.d(TAG, "Enter onViewCreated()")
+
+        binding.registerButton.setOnClickListener {
+            Log.d(TAG, "REGISTER button clicked: Navigating to SignInFragment")
+
+            it.findNavController()
+                .navigate(MainFragmentDirections.actionMainFragmentToSigninFragment())
+        }
 
         binding.accessButton.setOnClickListener {
             Log.d(TAG, "ACCESS button clicked: Navigating to AccessGrantedFragment")

@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_mainFragment_to_accessGrantedFragment"
             app:destination="@id/access_granted_fragment" />
+        <action
+            android:id="@+id/action_main_fragment_to_signin_fragment"
+            app:destination="@id/signin_fragment" />
     </fragment>
     <fragment
         android:id="@+id/login_fragment"
@@ -24,4 +27,9 @@
         android:name="com.example.androidtemplate.ui.AccessGrantedFragment"
         android:label="fragment_access_granted"
         tools:layout="@layout/fragment_access_granted" />
+    <fragment
+        android:id="@+id/signin_fragment"
+        android:name="com.example.androidtemplate.ui.SignInFragment"
+        android:label="fragment_signin"
+        tools:layout="@layout/fragment_sign_in" />
 </navigation>

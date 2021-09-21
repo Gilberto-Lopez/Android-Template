@@ -4,7 +4,16 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.example.androidtemplate.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+/**
+ * Hilt can provide dependencies to Android classes annotated with [AndroidEntryPoint].
+ *
+ * See
+ * [Inject dependencies into Android classes](https://developer.android.com/training/dependency-injection/hilt-android#android-classes)
+ * for more information.
+ */
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     // Instance of the binding class

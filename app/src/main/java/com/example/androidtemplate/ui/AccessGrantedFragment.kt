@@ -13,6 +13,7 @@ import com.example.androidtemplate.R
 import com.example.androidtemplate.data.User
 import com.example.androidtemplate.databinding.FragmentAccessGrantedBinding
 import com.example.androidtemplate.model.UserViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * This class implements a basic example of conditional navigation.
@@ -29,6 +30,7 @@ import com.example.androidtemplate.model.UserViewModel
  * [Conditional navigation](https://developer.android.com/guide/navigation/navigation-conditional)
  * for more information.
  */
+@AndroidEntryPoint
 class AccessGrantedFragment : Fragment() {
 
     // View binding
@@ -105,7 +107,7 @@ class AccessGrantedFragment : Fragment() {
      * @param user The user that just logged in.
      */
     private fun showWelcomeMessage(user: User) {
-        binding.userEmail.text = getString(R.string.welcome_user, user.email)
+        binding.userEmail.text = getString(R.string.welcome_user, user.userHandle)
     }
 
     companion object {
