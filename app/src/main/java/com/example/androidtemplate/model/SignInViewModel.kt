@@ -66,12 +66,12 @@ class SignInViewModel @Inject constructor(
             val dbUser = userDao.get(email)
             if (dbUser != null) {
                 // A user with the given email already exists, cannot register new user
-                return@withContext Result.failure("Email already exists")
+                return@withContext Result.failure("Email $email already exists")
             }
             val dbUserHandle = userDao.getByHandle(handle)
             if (dbUserHandle != null) {
                 // A user with the given handle already exists, cannot register new user
-                return@withContext Result.failure("Handle already in use")
+                return@withContext Result.failure("Handle @$handle already in use")
             }
             // Register new user into the database
             val newUser = User(email, password, handle)

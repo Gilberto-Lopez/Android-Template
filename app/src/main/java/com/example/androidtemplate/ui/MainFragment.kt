@@ -59,6 +59,13 @@ class MainFragment : Fragment() {
             it.findNavController()
                 .navigate(MainFragmentDirections.actionMainFragmentToAccessGrantedFragment())
         }
+
+        binding.logsButton.setOnClickListener {
+            Log.d(TAG, "LOGS button clicked: Navigating to LogsFragment")
+
+            it.findNavController()
+                .navigate(MainFragmentDirections.actionMainFragmentToLogsFragment())
+        }
     }
 
     companion object {

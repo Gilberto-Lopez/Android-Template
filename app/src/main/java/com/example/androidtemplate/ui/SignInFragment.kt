@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.example.androidtemplate.data.Logger
 import com.example.androidtemplate.data.Result
 import com.example.androidtemplate.data.Status
 import com.example.androidtemplate.data.User
@@ -16,6 +17,7 @@ import com.example.androidtemplate.databinding.FragmentSignInBinding
 import com.example.androidtemplate.model.SignInViewModel
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 /**
  * Sign in screen.
@@ -38,6 +40,9 @@ class SignInFragment : Fragment() {
     // View model not shared between fragments in this activity (MainActivity)
     // See viewModels() documentation
     private val signInViewModel: SignInViewModel by viewModels()
+
+    // Event logger
+    @Inject lateinit var logger: Logger
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -87,11 +92,15 @@ class SignInFragment : Fragment() {
             Status.LOADING -> {}
             Status.SUCCESS -> {
                 Log.d(TAG, "Registration successful")
+
+                logger.addLog("User @${result.value!!.userHandle} has been registered")
             }
             Status.FAILURE -> {
                 Log.d(TAG, "Registration failed")
 
-                showErrorMessage(result.message!!)
+                logger.addLog("Failed attempt to register new user: ${result.message!!}")
+
+                showErrorMessage(result.message)
             }
         }
     }

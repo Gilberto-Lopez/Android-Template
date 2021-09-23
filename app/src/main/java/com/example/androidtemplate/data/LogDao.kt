@@ -25,6 +25,6 @@ interface LogDao {
     /**
      * Retrieve all log entries.
      */
-    @Query("SELECT * FROM logs")
+    @Query("SELECT * FROM logs ORDER BY timestamp DESC")
     fun getAll(): List<Log>
 }

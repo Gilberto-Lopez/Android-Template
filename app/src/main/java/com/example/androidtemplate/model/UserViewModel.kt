@@ -47,6 +47,7 @@ class UserViewModel @Inject constructor(
         // The ViewModel should prefer creating coroutines and expose immutable observable types
         // instead of exposing suspend functions to views
         // See  https://developer.android.com/kotlin/coroutines/coroutines-best-practices#viewmodel-coroutines
+        // and https://developer.android.com/kotlin/coroutines/coroutines-best-practices#mutable-types
         // for more information
         login.value = Result.loading()
         viewModelScope.launch {
@@ -66,8 +67,8 @@ class UserViewModel @Inject constructor(
         return withContext(Dispatchers.IO) {
             val user = userDao.get(email)
             return@withContext when {
-                user == null -> Result.failure("User not found")
-                user.password != password -> Result.failure("Incorrect password")
+                user == null -> Result.failure("User $email not found")
+                user.password != password -> Result.failure("Incorrect password for $email")
                 else -> Result.success(user)
             }
         }

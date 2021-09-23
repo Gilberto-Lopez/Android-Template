@@ -10,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.fragment.findNavController
+import com.example.androidtemplate.data.Logger
 import com.example.androidtemplate.data.Result
 import com.example.androidtemplate.data.Status
 import com.example.androidtemplate.data.User
@@ -17,6 +18,7 @@ import com.example.androidtemplate.databinding.FragmentLoginBinding
 import com.example.androidtemplate.model.UserViewModel
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 /**
  * The login screen. (Conditional navigation example.)
@@ -42,6 +44,9 @@ class LoginFragment : Fragment() {
     // The previous destination's SavedStateHandle
     // Here we set the value whether or not the user logged in successfully
     private lateinit var savedStateHandle: SavedStateHandle
+
+    // Event logger
+    @Inject lateinit var logger: Logger
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -85,13 +90,17 @@ class LoginFragment : Fragment() {
             Status.SUCCESS -> {
                 Log.d(TAG, "Successful Authentication")
 
+                logger.addLog("User @${result.value!!.userHandle} logged in")
+
                 savedStateHandle.set(LOGIN_SUCCESSFUL, true)
                 findNavController().popBackStack()
             }
             Status.FAILURE -> {
                 Log.d(TAG, "Authentication Failed")
 
-                showErrorMessage(result.message!!)
+                logger.addLog("Failed attempt to log in: ${result.message!!}")
+
+                showErrorMessage(result.message)
             }
         }
     }

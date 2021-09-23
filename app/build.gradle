@@ -110,4 +110,8 @@ dependencies {
     def hilt_version = rootProject.hilt_version
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
+
+    // Recyclerview dependencies
+    def recyclerview_version = "1.2.1"
+    implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
 }
