@@ -1,5 +1,6 @@
 package com.example.androidtemplate.data
 
+import androidx.lifecycle.LiveData
 import com.example.androidtemplate.di.IODispatcher
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
@@ -19,7 +20,7 @@ import javax.inject.Singleton
  * [Suspend functions should be safe to call from the main thread](https://developer.android.com/kotlin/coroutines/coroutines-best-practices#main-safe)
  * for more information.
  *
- * This class (data layer) exposes suspend functions.
+ * This class (data layer) exposes suspend functions and observable data.
  *
  * See
  * [The data and business layer should expose suspend functions and Flows](https://developer.android.com/kotlin/coroutines/coroutines-best-practices#coroutines-data-layer)
@@ -42,10 +43,8 @@ class LogRepository @Inject constructor(
      * Retrieves all log entries.
      * @return The list of log entries.
      */
-    suspend fun getAll(): List<Log> {
-        return withContext(ioDispatcher) {
-            logDao.getAll()
-        }
+    fun getAll(): LiveData<List<Log>> {
+        return logDao.getAll()
     }
 
     /** Deletes all log entries. */

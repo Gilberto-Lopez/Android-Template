@@ -1,7 +1,6 @@
 package com.example.androidtemplate.data
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.example.androidtemplate.di.MainDispatcher
 import dagger.hilt.android.scopes.ActivityScoped
 import kotlinx.coroutines.CoroutineDispatcher
@@ -48,11 +47,7 @@ class Logger @Inject constructor(
      * @return The list of log entries as [LiveData].
      */
      fun getAll(): LiveData<List<Log>> {
-        val logs = MutableLiveData<List<Log>>(null)
-        scope.launch {
-            logs.value = logRepository.getAll()
-        }
-        return logs
+        return logRepository.getAll()
     }
 
     /** Deletes all log entries. */

@@ -1,5 +1,6 @@
 package com.example.androidtemplate.data
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
@@ -26,5 +27,5 @@ interface LogDao {
      * Retrieve all log entries.
      */
     @Query("SELECT * FROM logs ORDER BY timestamp DESC")
-    fun getAll(): List<Log>
+    fun getAll(): LiveData<List<Log>>
 }
