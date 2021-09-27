@@ -1,8 +1,8 @@
 package com.example.androidtemplate.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import com.example.androidtemplate.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,6 +26,12 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // Configure the toolbar to act as the app's action bar
+        // See https://developer.android.com/training/appbar/setting-up#add-toolbar
+        // and https://developer.android.com/guide/fragments/appbar
+        // for more information
+        setSupportActionBar(binding.activityToolbar)
     }
 
     companion object {

@@ -3,10 +3,17 @@ package com.example.androidtemplate.ui
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.example.androidtemplate.R
 import com.example.androidtemplate.adapters.LogsAdapter
 import com.example.androidtemplate.data.Logger
 import com.example.androidtemplate.databinding.FragmentLogsBinding
@@ -30,18 +37,47 @@ class LogsFragment : Fragment() {
     // Event logger
     @Inject lateinit var logger: Logger
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentLogsBinding.inflate(inflater, container, false)
+
+        (requireActivity() as AppCompatActivity).let {
+            it.findViewById<Toolbar>(R.id.activity_toolbar)?.run {
+                title = getString(R.string.logs)
+                setNavigationIcon(R.drawable.ic_back)
+                setNavigationOnClickListener { findNavController().navigateUp() }
+            }
+        }
+
         return binding.root
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.logs_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.clear_log_menu_button -> {
+                // Clear log
+                logger.deleteAll()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

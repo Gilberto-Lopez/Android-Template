@@ -3,10 +3,16 @@ package com.example.androidtemplate.ui
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import com.example.androidtemplate.R
 import com.example.androidtemplate.databinding.FragmentMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -27,6 +33,14 @@ class MainFragment : Fragment() {
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        // This fragment is participating in the population of the options menu
+        // See https://developer.android.com/guide/fragments/appbar#activity-register
+        // for more information
+        setHasOptionsMenu(true)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,6 +48,16 @@ class MainFragment : Fragment() {
         // Inflate the layout for this fragment
         // and keep the reference to the instance of the binding class
         _binding = FragmentMainBinding.inflate(inflater, container, false)
+
+        // Set up the action bar (navigation icon, navigation listener, title, etc)
+        // See https://developer.android.com/guide/fragments/appbar#nav-icon for more information
+        (requireActivity() as AppCompatActivity).let {
+            it.findViewById<Toolbar>(R.id.activity_toolbar)?.run {
+                title = getString(R.string.app_name)
+                navigationIcon = null
+            }
+        }
+
         return binding.root
     }
 
@@ -41,6 +65,31 @@ class MainFragment : Fragment() {
         super.onDestroyView()
         // Clear the reference _binding
         _binding = null
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        // Inflate this fragment's menu
+        // See https://developer.android.com/guide/fragments/appbar#activity-inflate
+        // for more information
+        inflater.inflate(R.menu.main_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle menu click events
+        // See https://developer.android.com/guide/fragments/appbar#activity-click
+        // for more information
+        return when (item.itemId) {
+            R.id.logs_menu_button -> {
+                Log.d(TAG, "LOGS button clicked: Navigating to LogsFragment")
+
+                requireView().findNavController()
+                    .navigate(MainFragmentDirections.actionMainFragmentToLogsFragment())
+                true
+            }
+            else -> {
+                super.onOptionsItemSelected(item)
+            }
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -58,13 +107,6 @@ class MainFragment : Fragment() {
 
             it.findNavController()
                 .navigate(MainFragmentDirections.actionMainFragmentToAccessGrantedFragment())
-        }
-
-        binding.logsButton.setOnClickListener {
-            Log.d(TAG, "LOGS button clicked: Navigating to LogsFragment")
-
-            it.findNavController()
-                .navigate(MainFragmentDirections.actionMainFragmentToLogsFragment())
         }
     }
 

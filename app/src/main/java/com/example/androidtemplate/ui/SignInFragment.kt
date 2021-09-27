@@ -5,10 +5,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.example.androidtemplate.R
 import com.example.androidtemplate.data.Logger
 import com.example.androidtemplate.data.Result
 import com.example.androidtemplate.data.Status
@@ -70,6 +73,14 @@ class SignInFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         Log.d(TAG, "Enter onViewCreated()")
+
+        (requireActivity() as AppCompatActivity).let {
+            it.findViewById<Toolbar>(R.id.activity_toolbar)?.run {
+                title = getString(R.string.signin)
+                setNavigationIcon(R.drawable.ic_back)
+                setNavigationOnClickListener { findNavController().navigateUp() }
+            }
+        }
 
         // When user clicks the sign in button, retrieve user data and attempt register new user
         binding.signInButton.setOnClickListener {

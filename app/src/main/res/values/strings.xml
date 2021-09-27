@@ -12,4 +12,5 @@
     <string name="prompt_handle">Handle</string>
     <string name="register">Register</string>
     <string name="logs">Logs</string>
+    <string name="clear_log">Clear log</string>
 </resources>

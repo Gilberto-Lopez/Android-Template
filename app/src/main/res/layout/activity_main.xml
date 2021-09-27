@@ -7,6 +7,15 @@
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/activity_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:elevation="4dp"
+        style="@style/ToolbarStyle"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/app_name" />
+
     <!--
         The main activity layout contains the navigation host.
         See https://developer.android.com/guide/navigation/navigation-getting-started
@@ -16,8 +25,11 @@
         android:id="@+id/nav_host"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         app:defaultNavHost="true"
-        app:navGraph="@navigation/nav_graph" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_toolbar"
+        app:navGraph="@navigation/nav_graph"
+        tools:layout_editor_absoluteX="16dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
