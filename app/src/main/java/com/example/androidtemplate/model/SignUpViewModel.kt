@@ -14,26 +14,26 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 /**
- * This view model stores sign in status and navigation event.
+ * This view model stores sign up status and navigation event.
  *
  * This view model is _not shared between fragments.
  */
 @HiltViewModel
-class SignInViewModel @Inject constructor(
+class SignUpViewModel @Inject constructor(
     private val userDao: UserDao
 ) : ViewModel() {
 
-    // Sign in status, exposed through calls to signIn()
-    private val signIn = MutableLiveData<Result<User>>(null)
+    // Sign up status, exposed through calls to signUp()
+    private val signUp = MutableLiveData<Result<User>>(null)
 
     // Encapsulated navigation event
-    private val _eventSignInFinish = MutableLiveData(false)
+    private val _eventSignUpFinish = MutableLiveData(false)
     /** `true` when registration was successful and navigation must occur, `false` otherwise.  */
-    val eventSignInFinish: LiveData<Boolean> get() = _eventSignInFinish
+    val eventSignUpFinish: LiveData<Boolean> get() = _eventSignUpFinish
 
-    /** Signal navigation out of sign in screen is done. */
-    fun onSignInFinishComplete() {
-        _eventSignInFinish.value = false
+    /** Signal navigation out of sign up screen is done. */
+    fun onSignUpFinishComplete() {
+        _eventSignUpFinish.value = false
     }
 
     /**
@@ -44,16 +44,16 @@ class SignInViewModel @Inject constructor(
      * @return A [LiveData] object containing a [Result] with the user data if
      * registration was successful.
      */
-    fun signIn(email: String, password: String, handle: String): LiveData<Result<User>> {
-        signIn.value = Result.loading()
+    fun signUp(email: String, password: String, handle: String): LiveData<Result<User>> {
+        signUp.value = Result.loading()
         viewModelScope.launch {
             val result = registerUser(email, password, handle)
-            signIn.value = result
+            signUp.value = result
             if (result.isSuccess) {
-                _eventSignInFinish.value = true
+                _eventSignUpFinish.value = true
             }
         }
-        return signIn
+        return signUp
     }
 
     // TODO: Move this function to repository

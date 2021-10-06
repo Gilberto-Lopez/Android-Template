@@ -14,8 +14,8 @@
             android:id="@+id/action_mainFragment_to_accessGrantedFragment"
             app:destination="@id/access_granted_fragment" />
         <action
-            android:id="@+id/action_main_fragment_to_signin_fragment"
-            app:destination="@id/signin_fragment" />
+            android:id="@+id/action_main_fragment_to_sign_up_fragment"
+            app:destination="@id/sign_up_fragment" />
         <action
             android:id="@+id/action_main_fragment_to_logsFragment"
             app:destination="@id/logs_fragment" />
@@ -31,10 +31,10 @@
         android:label="fragment_access_granted"
         tools:layout="@layout/fragment_access_granted" />
     <fragment
-        android:id="@+id/signin_fragment"
-        android:name="com.example.androidtemplate.ui.SignInFragment"
-        android:label="fragment_signin"
-        tools:layout="@layout/fragment_sign_in" />
+        android:id="@+id/sign_up_fragment"
+        android:name="com.example.androidtemplate.ui.SignUpFragment"
+        android:label="fragment_sign_up"
+        tools:layout="@layout/fragment_sign_up" />
     <fragment
         android:id="@+id/logs_fragment"
         android:name="com.example.androidtemplate.ui.LogsFragment"

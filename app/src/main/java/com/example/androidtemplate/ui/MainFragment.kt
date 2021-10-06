@@ -96,10 +96,10 @@ class MainFragment : Fragment() {
         Log.d(TAG, "Enter onViewCreated()")
 
         binding.registerButton.setOnClickListener {
-            Log.d(TAG, "REGISTER button clicked: Navigating to SignInFragment")
+            Log.d(TAG, "REGISTER button clicked: Navigating to SignUpFragment")
 
             it.findNavController()
-                .navigate(MainFragmentDirections.actionMainFragmentToSigninFragment())
+                .navigate(MainFragmentDirections.actionMainFragmentToSignUpFragment())
         }
 
         binding.accessButton.setOnClickListener {

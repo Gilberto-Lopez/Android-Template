@@ -8,7 +8,7 @@
     <string name="login_failed">"Login failed"</string>
     <string name="access">Access</string>
     <string name="welcome_user">Welcome @%s</string>
-    <string name="signin">Sign In</string>
+    <string name="sign_up">Sign Up</string>
     <string name="prompt_handle">Handle</string>
     <string name="register">Register</string>
     <string name="logs">Logs</string>
