@@ -8,8 +8,6 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.androidtemplate.R
@@ -48,16 +46,6 @@ class MainFragment : Fragment() {
         // Inflate the layout for this fragment
         // and keep the reference to the instance of the binding class
         _binding = FragmentMainBinding.inflate(inflater, container, false)
-
-        // Set up the action bar (navigation icon, navigation listener, title, etc)
-        // See https://developer.android.com/guide/fragments/appbar#nav-icon for more information
-        (requireActivity() as AppCompatActivity).let {
-            it.findViewById<Toolbar>(R.id.activity_toolbar)?.run {
-                title = getString(R.string.app_name)
-                navigationIcon = null
-            }
-        }
-
         return binding.root
     }
 

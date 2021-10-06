@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/main_fragment"
         android:name="com.example.androidtemplate.ui.MainFragment"
-        android:label="fragment_main"
+        android:label="@string/app_name"
         tools:layout="@layout/fragment_main" >
         <action
             android:id="@+id/action_mainFragment_to_accessGrantedFragment"
@@ -23,21 +23,21 @@
     <fragment
         android:id="@+id/login_fragment"
         android:name="com.example.androidtemplate.ui.LoginFragment"
-        android:label="fragment_login"
+        android:label="@string/login"
         tools:layout="@layout/fragment_login" />
     <fragment
         android:id="@+id/access_granted_fragment"
         android:name="com.example.androidtemplate.ui.AccessGrantedFragment"
-        android:label="fragment_access_granted"
+        android:label="@string/access"
         tools:layout="@layout/fragment_access_granted" />
     <fragment
         android:id="@+id/sign_up_fragment"
         android:name="com.example.androidtemplate.ui.SignUpFragment"
-        android:label="fragment_sign_up"
+        android:label="@string/sign_up"
         tools:layout="@layout/fragment_sign_up" />
     <fragment
         android:id="@+id/logs_fragment"
         android:name="com.example.androidtemplate.ui.LogsFragment"
-        android:label="fragment_logs"
+        android:label="@string/logs"
         tools:layout="@layout/fragment_logs" />
 </navigation>

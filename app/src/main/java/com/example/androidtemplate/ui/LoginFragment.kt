@@ -5,14 +5,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.fragment.findNavController
-import com.example.androidtemplate.R
 import com.example.androidtemplate.data.Logger
 import com.example.androidtemplate.data.Result
 import com.example.androidtemplate.data.Status
@@ -73,14 +70,6 @@ class LoginFragment : Fragment() {
         // for more information
         savedStateHandle = findNavController().previousBackStackEntry!!.savedStateHandle
         savedStateHandle.set(LOGIN_SUCCESSFUL, false)
-
-        (requireActivity() as AppCompatActivity).let {
-            it.findViewById<Toolbar>(R.id.activity_toolbar)?.run {
-                title = getString(R.string.login)
-                setNavigationIcon(R.drawable.ic_back)
-                setNavigationOnClickListener { findNavController().popBackStack() }
-            }
-        }
 
         // When user clicks the login button, retrieve email and password and authenticate
         binding.loginButton.setOnClickListener {

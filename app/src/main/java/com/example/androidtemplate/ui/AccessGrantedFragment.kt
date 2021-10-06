@@ -2,12 +2,10 @@ package com.example.androidtemplate.ui
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
@@ -49,14 +47,6 @@ class AccessGrantedFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         _binding = FragmentAccessGrantedBinding.inflate(inflater, container, false)
-
-        (requireActivity() as AppCompatActivity).let {
-            it.findViewById<Toolbar>(R.id.activity_toolbar)?.run {
-                title = getString(R.string.access)
-                setNavigationIcon(R.drawable.ic_back)
-                setNavigationOnClickListener { findNavController().navigateUp() }
-            }
-        }
 
         // The following code, previously found in onCreate(), would cause the following error:
         //
