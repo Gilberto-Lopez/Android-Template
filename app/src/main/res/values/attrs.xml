@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+        Define custom attributes for user defined view.
+        See https://developer.android.com/training/custom-views/create-view#customattr
+        for more information.
+    -->
+    <declare-styleable name="SwipeButton">
+        <attr name="label" format="string"/>
+        <attr name="label_color" format="color"/>
+        <attr name="label_size" format="dimension"/>
+        <attr name="drawable_enabled" format="reference"/>
+        <attr name="drawable_disabled" format="reference"/>
+        <attr name="background_shape" format="reference"/>
+        <attr name="button_shape" format="reference"/>
+    </declare-styleable>
+</resources>

@@ -96,6 +96,17 @@ class MainFragment : Fragment() {
             it.findNavController()
                 .navigate(MainFragmentDirections.actionMainFragmentToAccessGrantedFragment())
         }
+
+        binding.swipeButton.setOnActivateListener {
+            Log.d(TAG, "SwipeButton active")
+            binding.accessButton.isEnabled = false
+            binding.registerButton.isEnabled = false
+        }
+        binding.swipeButton.setOnClickListener {
+            Log.d(TAG, "SwipeButton click")
+            binding.accessButton.isEnabled = true
+            binding.registerButton.isEnabled = true
+        }
     }
 
     companion object {
