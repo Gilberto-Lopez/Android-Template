@@ -67,6 +67,8 @@ interface SwipeListener {
  *
  * See
  * [Creating a View Class](https://developer.android.com/training/custom-views/create-view)
+ * and
+ * [Property Animation Overview](https://developer.android.com/guide/topics/graphics/prop-animation)
  * for more information.
  */
 class SwipeButton : RelativeLayout, SwipeListener {
@@ -277,8 +279,8 @@ class SwipeButton : RelativeLayout, SwipeListener {
             slidingButton.x,
             0f
         ).apply {
-            addUpdateListener {
-                val x = this.animatedValue as Float
+            addUpdateListener { updatedAnimation ->
+                val x = updatedAnimation.animatedValue as Float
                 slidingButton.x = x
             }
             duration = 200
@@ -307,8 +309,8 @@ class SwipeButton : RelativeLayout, SwipeListener {
             slidingButton.x,
             0f
         ).apply {
-            addUpdateListener {
-                val x = this.animatedValue as Float
+            addUpdateListener { updatedAnimation ->
+                val x = updatedAnimation.animatedValue as Float
                 slidingButton.x = x
             }
         }
@@ -317,9 +319,9 @@ class SwipeButton : RelativeLayout, SwipeListener {
             slidingButton.width,
             width
         ).apply {
-            addUpdateListener {
+            addUpdateListener { updatedAnimation ->
                 val params = slidingButton.layoutParams
-                params.width = this.animatedValue as Int
+                params.width = updatedAnimation.animatedValue as Int
                 slidingButton.layoutParams = params
             }
         }
@@ -353,12 +355,20 @@ class SwipeButton : RelativeLayout, SwipeListener {
             slidingButton.width,
             initialButtonWidth
         ).apply {
-            addUpdateListener {
+            addUpdateListener { updatedAnimation ->
                 val params = slidingButton.layoutParams
-                params.width = this.animatedValue as Int
+                params.width = updatedAnimation.animatedValue as Int
                 slidingButton.layoutParams = params
             }
+        }
 
+        val objectAnimator = ObjectAnimator.ofFloat(
+            centerText,
+            "alpha",
+            1f
+        )
+
+        AnimatorSet().run {
             addListener(
                 object : AnimatorListenerAdapter() {
                     override fun onAnimationEnd(animation: Animator?) {
@@ -370,15 +380,7 @@ class SwipeButton : RelativeLayout, SwipeListener {
                     }
                 }
             )
-        }
 
-        val objectAnimator = ObjectAnimator.ofFloat(
-            centerText,
-            "alpha",
-            1f
-        )
-
-        AnimatorSet().run {
             playTogether(objectAnimator, widthAnimator)
             start()
         }
