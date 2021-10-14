@@ -275,6 +275,8 @@ class SwipeButton : RelativeLayout, SwipeListener {
      * Animation only.
      */
     private fun moveButtonBack() {
+        initialX = 0f
+
         val positionAnimator = ValueAnimator.ofFloat(
             slidingButton.x,
             0f
@@ -351,6 +353,8 @@ class SwipeButton : RelativeLayout, SwipeListener {
     * Animation only. clickListener will not be invoked.
     */
     private fun collapseButton() {
+        initialX = 0f
+
         val widthAnimator = ValueAnimator.ofInt(
             slidingButton.width,
             initialButtonWidth
